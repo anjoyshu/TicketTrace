@@ -17,7 +17,15 @@ namespace TicketTrace.Controllers
         // GET: TicketMains
         public ActionResult Index()
         {
-            return View(db.TicketMain.ToList());
+            if (Session["UserName"] == null)
+            {
+                TempData["message"] = "<script>alert('請先登入');</script>";
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+                return View(db.TicketMain.ToList());
+            }
         }
 
         // GET: TicketMains/Details/5
@@ -38,6 +46,29 @@ namespace TicketTrace.Controllers
         // GET: TicketMains/Create
         public ActionResult Create()
         {
+            var form_categories = db.Form.ToList();
+
+            if (Session["RoleName"].ToString() == "QA")
+            {
+                form_categories.Remove(form_categories.Find(p => p.FormName == "Feature Request"));
+            }
+            if (Session["RoleName"].ToString() == "PM")
+            {
+                form_categories.Remove(form_categories.Find(p => p.FormName == "Bug" && p.FormName == "Test Case"));
+            }
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            foreach (var category in form_categories)
+            {
+                items.Add(new SelectListItem()
+                {
+                    Text = category.FormName,
+                    Value = category.FID.ToString()
+                });
+            }
+
+            ViewBag.CategoryItems = items;
+
             return View();
         }
 

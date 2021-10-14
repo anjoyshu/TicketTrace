@@ -26,8 +26,8 @@ namespace TicketTrace.Models
         }
     
         public virtual DbSet<Form> Form { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<TicketMain> TicketMain { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
     }
 }

@@ -16,7 +16,5 @@ namespace TicketTrace.Models
     {
         public int RID { get; set; }
         public string RoleName { get; set; }
-        public string Permission { get; set; }
-        public string ActionMode { get; set; }
     }
 }

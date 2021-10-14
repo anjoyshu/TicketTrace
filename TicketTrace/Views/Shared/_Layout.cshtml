@@ -1,12 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Html.Raw(TempData["message"])
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,6 +24,17 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("首頁", "Index", "Home")</li>
                     <li>@Html.ActionLink("TicketTrace", "Index", "TicketMains")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["UserName"] == null)
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+                        <li>@Html.Label(Session["UserName"].ToString(), new { style="color:white;"})</li>
+                    }
                 </ul>
             </div>
         </div>

@@ -16,6 +16,14 @@ namespace TicketTrace.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            Session["UserID"] = null;
+            Session["UserName"] = null;
+            Session["RoleName"] = null;
+            return RedirectToAction("Login");
+        }
+
         public ActionResult Ticket()
         {
             return View();
@@ -29,13 +37,16 @@ namespace TicketTrace.Controllers
             {
                 using (TicketEntities db = new TicketEntities())
                 {
-                    var obj = db.User.Where(a => a.Account.Equals(objUser.Account) && a.Password.Equals(objUser.Password)).FirstOrDefault();
+                    var obj = db.User
+                        .Join(db.Role, u => u.RID, r => r.RID, (u, r) => new { u = u, r = r })
+                        .Where(a => a.u.Account.Equals(objUser.Account) && a.u.Password.Equals(objUser.Password)).FirstOrDefault();
                     
                     if (obj != null)
                     {
-                        Session["UserID"] = obj.UID.ToString();
-                        Session["UserName"] = obj.Name.ToString();
-                        return RedirectToAction("UserDashBoard");
+                        Session["UserID"] = obj.u.UID.ToString();
+                        Session["UserName"] = obj.u.Name.ToString();
+                        Session["RoleName"] = obj.r.RoleName.ToString();
+                        return RedirectToAction("Index", "TicketMains");
                     }
                 }
             }

@@ -6,9 +6,9 @@
     <edmx:Diagrams>
       <Diagram DiagramId="5937f29d3ad04b4da8d521733d707b46" Name="Diagram1">
         <EntityTypeShape EntityType="TicketModel.Form" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TicketModel.TicketMain" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TicketModel.User" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TicketModel.Role" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TicketModel.TicketMain" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -24,6 +24,13 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("首頁", "Index", "Home")</li>
                     <li>@Html.ActionLink("TicketTrace", "Index", "TicketMains")</li>
+                    @if (Session["RoleName"] != null)
+                    {
+                        if (Session["RoleName"].ToString() == "Administrator")
+                        {
+                            <li>@Html.ActionLink("管理使用者", "Index", "Users")</li>
+                        }
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["UserName"] == null)
@@ -33,7 +40,7 @@
                     else
                     {
                         <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
-                        <li>@Html.Label(Session["UserName"].ToString(), new { style="color:white;"})</li>
+                        <li>@Html.Label(Session["UserName"].ToString(), new { style = "color:white;" })</li>
                     }
                 </ul>
             </div>

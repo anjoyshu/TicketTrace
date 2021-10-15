@@ -11,16 +11,21 @@ namespace TicketTrace.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TicketMain
     {
         public int TID { get; set; }
         public Nullable<int> FID { get; set; }
         public Nullable<int> UID { get; set; }
+        [Required]
         public string Summary { get; set; }
+        [Required]
         public string Description { get; set; }
         public Nullable<bool> Severity { get; set; }
         public Nullable<bool> Priority { get; set; }
+        public string Comment { get; set; }
+        public Nullable<bool> Resolve { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
     }
 }

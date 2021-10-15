@@ -77,8 +77,12 @@ namespace TicketTrace.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TID,FID,UID,Summary,Description,Severity,Priority,CreateTime")] TicketMain ticketMain)
+        public ActionResult Create([Bind(Include = "TID,FID,UID,Summary,Description,Severity,Priority,Comment,Resolve,CreateTime")] TicketMain ticketMain, FormCollection fc)
         {
+            ticketMain.UID = Int16.Parse(Session["UserID"].ToString());
+            ticketMain.FID = Int16.Parse(fc["DropDownList_Category"].ToString());
+            ticketMain.CreateTime = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.TicketMain.Add(ticketMain);
@@ -97,6 +101,7 @@ namespace TicketTrace.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TicketMain ticketMain = db.TicketMain.Find(id);
+
             if (ticketMain == null)
             {
                 return HttpNotFound();
@@ -109,8 +114,11 @@ namespace TicketTrace.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TID,FID,UID,Summary,Description,Severity,Priority,CreateTime")] TicketMain ticketMain)
+        public ActionResult Edit([Bind(Include = "TID,FID,UID,Summary,Description,Severity,Priority,Comment,Resolve,CreateTime")] TicketMain ticketMain)
         {
+            ticketMain.UID = Int16.Parse(Session["UserID"].ToString());
+            ticketMain.CreateTime = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.Entry(ticketMain).State = EntityState.Modified;

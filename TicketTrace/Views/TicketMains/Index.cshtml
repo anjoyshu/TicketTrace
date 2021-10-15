@@ -33,6 +33,12 @@
             @Html.DisplayNameFor(model => model.Priority)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Resolve)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.CreateTime)
         </th>
         <th></th>
@@ -60,10 +66,23 @@
                 @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resolve)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.CreateTime)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TID }) |
+                @if (item.Resolve == null)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TID }) @: |
+                }
+                else
+                {
+                    @Html.Label("已解決", htmlAttributes: new { style = "color: red;" }) @: |
+                }
                 @Html.ActionLink("Details", "Details", new { id = item.TID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.TID })
             </td>

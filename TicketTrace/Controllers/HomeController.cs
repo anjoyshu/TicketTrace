@@ -39,7 +39,8 @@ namespace TicketTrace.Controllers
                 {
                     var obj = db.User
                         .Join(db.Role, u => u.RID, r => r.RID, (u, r) => new { u = u, r = r })
-                        .Where(a => a.u.Account.Equals(objUser.Account) && a.u.Password.Equals(objUser.Password)).FirstOrDefault();
+                        .Where(a => a.u.Account.Equals(objUser.Account) && a.u.Password.Equals(objUser.Password))
+                        .FirstOrDefault();
                     
                     if (obj != null)
                     {
@@ -51,18 +52,6 @@ namespace TicketTrace.Controllers
                 }
             }
             return View(objUser);
-        }
-
-        public ActionResult UserDashBoard()
-        {
-            if (Session["UserID"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
         }
 
         public ActionResult About()

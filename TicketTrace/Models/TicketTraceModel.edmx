@@ -26,10 +26,12 @@
           <Property Name="TID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FID" Type="int" />
           <Property Name="UID" Type="int" />
-          <Property Name="Summary" Type="nvarchar(max)" />
-          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Summary" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Severity" Type="bit" />
           <Property Name="Priority" Type="bit" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Resolve" Type="bit" />
           <Property Name="CreateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="User">
@@ -59,19 +61,6 @@
           <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FormName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="TicketMain">
-          <Key>
-            <PropertyRef Name="TID" />
-          </Key>
-          <Property Name="TID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FID" Type="Int32" />
-          <Property Name="UID" Type="Int32" />
-          <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Severity" Type="Boolean" />
-          <Property Name="Priority" Type="Boolean" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UID" />
@@ -84,9 +73,9 @@
         </EntityType>
         <EntityContainer Name="TicketEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Form" EntityType="Self.Form" />
-          <EntitySet Name="TicketMain" EntityType="Self.TicketMain" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="Role" EntityType="TicketModel.Role" />
+          <EntitySet Name="TicketMain" EntityType="TicketModel.TicketMain" />
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -94,6 +83,21 @@
           </Key>
           <Property Name="RID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TicketMain">
+          <Key>
+            <PropertyRef Name="TID" />
+          </Key>
+          <Property Name="TID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FID" Type="Int32" />
+          <Property Name="UID" Type="Int32" />
+          <Property Name="Summary" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Severity" Type="Boolean" />
+          <Property Name="Priority" Type="Boolean" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Resolve" Type="Boolean" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -106,20 +110,6 @@
               <MappingFragment StoreEntitySet="Form">
                 <ScalarProperty Name="FID" ColumnName="FID" />
                 <ScalarProperty Name="FormName" ColumnName="FormName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TicketMain">
-            <EntityTypeMapping TypeName="TicketModel.TicketMain">
-              <MappingFragment StoreEntitySet="TicketMain">
-                <ScalarProperty Name="TID" ColumnName="TID" />
-                <ScalarProperty Name="FID" ColumnName="FID" />
-                <ScalarProperty Name="UID" ColumnName="UID" />
-                <ScalarProperty Name="Summary" ColumnName="Summary" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Severity" ColumnName="Severity" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -139,6 +129,22 @@
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="RID" ColumnName="RID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TicketMain">
+            <EntityTypeMapping TypeName="TicketModel.TicketMain">
+              <MappingFragment StoreEntitySet="TicketMain">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Resolve" ColumnName="Resolve" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Severity" ColumnName="Severity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="TID" ColumnName="TID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

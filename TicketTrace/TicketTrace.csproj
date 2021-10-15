@@ -197,6 +197,7 @@
     <Content Include="Models\TicketTraceModel.edmx.diagram">
       <DependentUpon>TicketTraceModel.edmx</DependentUpon>
     </Content>
+    <Content Include="DB_Bak\Ticket.bak" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
